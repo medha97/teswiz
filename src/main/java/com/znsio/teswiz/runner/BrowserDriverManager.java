@@ -395,13 +395,15 @@ class BrowserDriverManager {
 
     private static void manageWindowSizeAndHeadlessMode(WebDriver driver) {
         LOGGER.info("Reset browser window size");
-        if (shouldBrowserBeMaximized && !isRunInHeadlessMode) {
-            Toolkit toolkit = Toolkit.getDefaultToolkit();
-            int width = toolkit.getScreenSize().width;
-            int height = toolkit.getScreenSize().height;
-            driver.manage().window().setSize(new Dimension(width, height));
-        } else if (isRunInHeadlessMode) {
-            driver.manage().window().setSize(new Dimension(1920, 1080));
+        if(!Runner.getPlatform().equals(Platform.electron)) {
+            if (shouldBrowserBeMaximized && !isRunInHeadlessMode) {
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                int width = toolkit.getScreenSize().width;
+                int height = toolkit.getScreenSize().height;
+                driver.manage().window().setSize(new Dimension(width, height));
+            } else if (isRunInHeadlessMode) {
+                driver.manage().window().setSize(new Dimension(1920, 1080));
+            }
         }
     }
 
