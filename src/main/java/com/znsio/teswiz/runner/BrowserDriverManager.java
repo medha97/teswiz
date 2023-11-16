@@ -207,7 +207,9 @@ class BrowserDriverManager {
     private static ChromeOptions getChromeOptions(String forUserPersona, TestExecutionContext testExecutionContext, JSONObject chromeConfiguration) {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setAcceptInsecureCerts(chromeConfiguration.getBoolean(ACCEPT_INSECURE_CERTS));
+
         if (Runner.getPlatform().equals(Platform.electron)) {
+            chromeOptions.setBrowserVersion(chromeConfiguration.getString("binary"));
             Toolkit toolkit = Toolkit.getDefaultToolkit();
             int width = toolkit.getScreenSize().width;
             int height = toolkit.getScreenSize().height;
